@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
+import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.MessageContentType;
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -14,6 +18,7 @@ import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
 import com.stfalcon.chatkit.sample.features.demo.DemoMessagesActivity;
+import com.stfalcon.chatkit.sample.features.demo.custom.layout.ShowImageFullScreenActivity;
 import com.stfalcon.chatkit.sample.features.demo.custom.media.holders.IncomingVoiceMessageViewHolder;
 import com.stfalcon.chatkit.sample.features.demo.custom.media.holders.OutcomingVoiceMessageViewHolder;
 
@@ -21,7 +26,8 @@ public class CustomMediaMessagesActivity extends DemoMessagesActivity
         implements MessageInput.InputListener,
         MessageInput.AttachmentsListener,
         MessageHolders.ContentChecker<Message>,
-        DialogInterface.OnClickListener {
+        DialogInterface.OnClickListener,
+        MessagesListAdapter.OnMessageViewClickListener {
 
     private static final byte CONTENT_TYPE_VOICE = 1;
 
@@ -81,6 +87,13 @@ public class CustomMediaMessagesActivity extends DemoMessagesActivity
         }
     }
 
+    @Override
+    public void onMessageViewClick(View view, IMessage message) {
+        if (message instanceof MessageContentType.Image) {
+            ShowImageFullScreenActivity.open(this, ((MessageContentType.Image) message).getImageUrl());
+        }
+    }
+
     private void initAdapter() {
         MessageHolders holders = new MessageHolders()
                 .registerContentType(
@@ -95,6 +108,7 @@ public class CustomMediaMessagesActivity extends DemoMessagesActivity
         super.messagesAdapter = new MessagesListAdapter<>(super.senderId, holders, super.imageLoader);
         super.messagesAdapter.enableSelectionMode(this);
         super.messagesAdapter.setLoadMoreListener(this);
+        super.messagesAdapter.setOnMessageViewClickListener(this);
         this.messagesList.setAdapter(super.messagesAdapter);
     }
 }
