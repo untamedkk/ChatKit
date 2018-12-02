@@ -4,13 +4,14 @@ import android.view.View;
 
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.sample.R;
+import com.stfalcon.chatkit.sample.common.data.model.ImageMessage;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
 
 /*
  * Created by troy379 on 05.04.17.
  */
 public class CustomIncomingImageMessageViewHolder
-        extends MessageHolders.IncomingImageMessageViewHolder<Message> {
+        extends MessageHolders.IncomingImageMessageViewHolder<ImageMessage> {
 
     private View onlineIndicator;
 
@@ -20,7 +21,7 @@ public class CustomIncomingImageMessageViewHolder
     }
 
     @Override
-    public void onBind(Message message) {
+    public void onBind(ImageMessage message) {
         super.onBind(message);
 
         boolean isOnline = message.getUser().isOnline();

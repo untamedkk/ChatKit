@@ -1,6 +1,11 @@
 package com.stfalcon.chatkit.sample.common.data.fixtures;
 
+import android.util.Log;
+
+import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.sample.common.data.model.ImageMessage;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
+import com.stfalcon.chatkit.sample.common.data.model.TextMessage;
 import com.stfalcon.chatkit.sample.common.data.model.User;
 
 import java.util.ArrayList;
@@ -15,9 +20,11 @@ public final class MessagesFixtures extends FixturesData {
         throw new AssertionError();
     }
 
-    public static Message getImageMessage() {
-        Message message = new Message(getRandomId(), getUser(), null);
-        message.setImage(new Message.Image(getRandomImage()));
+    public static ImageMessage getImageMessage() {
+        //Message message = new Message(getRandomId(), getUser(), null);
+        //message.setImage(new Message.Image(getRandomImage()));
+        ImageMessage message = new ImageMessage(getRandomId(), getUser(), null);
+        message.setImage(getRandomImage());
         return message;
     }
 
@@ -32,7 +39,7 @@ public final class MessagesFixtures extends FixturesData {
     }
 
     public static Message getTextMessage(String text) {
-        return new Message(getRandomId(), getUser(), text);
+        return new TextMessage(getRandomId(), getUser(), text);
     }
 
     public static ArrayList<Message> getMessages(Date startDate) {
@@ -51,7 +58,6 @@ public final class MessagesFixtures extends FixturesData {
                 Calendar calendar = Calendar.getInstance();
                 if (startDate != null) calendar.setTime(startDate);
                 calendar.add(Calendar.DAY_OF_MONTH, -(i * i + 1));
-
                 message.setCreatedAt(calendar.getTime());
                 messages.add(message);
             }

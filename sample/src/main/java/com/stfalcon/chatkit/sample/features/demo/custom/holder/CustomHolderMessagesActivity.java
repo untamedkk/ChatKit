@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -59,6 +60,11 @@ public class CustomHolderMessagesActivity extends DemoMessagesActivity
     public void onMessageLongClick(Message message) {
         AppUtils.showToast(this, R.string.on_log_click_message, false);
     }
+
+   /* @Override
+    public void onMessageLongClick(Message message) {
+        AppUtils.showToast(this, R.string.on_log_click_message, false);
+    }*/
 
     private void initAdapter() {
 

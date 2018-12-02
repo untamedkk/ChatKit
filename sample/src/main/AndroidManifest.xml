@@ -38,6 +38,8 @@
         <activity
             android:name=".features.demo.custom.holder.CustomHolderMessagesActivity"/>
         <activity
+            android:name=".features.demo.custom.layout.ShowImageFullScreenActivity"/>
+        <activity
             android:name=".features.demo.custom.media.CustomMediaMessagesActivity"
             android:theme="@style/BlueTheme"/>
 

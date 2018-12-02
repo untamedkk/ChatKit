@@ -9,15 +9,18 @@ import java.util.Date;
  * Created by troy379 on 04.04.17.
  */
 public class Message implements IMessage,
-        MessageContentType.Image, /*this is for default image messages implementation*/
+       //MessageContentType.Image, /*this is for default image messages implementation*/
         MessageContentType /*and this one is for custom content type (in this case - voice message)*/ {
 
     private String id;
     private String text;
     private Date createdAt;
     private User user;
-    private Image image;
+    //private Image image;
     private Voice voice;
+
+    public Message() {
+    }
 
     public Message(String id, User user, String text) {
         this(id, user, text, new Date());
@@ -50,10 +53,10 @@ public class Message implements IMessage,
         return this.user;
     }
 
-    @Override
+   /* @Override
     public String getImageUrl() {
         return image == null ? null : image.url;
-    }
+    }*/
 
     public Voice getVoice() {
         return voice;
@@ -71,22 +74,18 @@ public class Message implements IMessage,
         this.createdAt = createdAt;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public void setVoice(Voice voice) {
         this.voice = voice;
     }
 
-    public static class Image {
+   /* public static class Image {
 
         private String url;
 
         public Image(String url) {
             this.url = url;
         }
-    }
+    }*/
 
     public static class Voice {
 

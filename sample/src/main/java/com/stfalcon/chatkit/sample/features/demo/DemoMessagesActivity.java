@@ -11,10 +11,12 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
+import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.sample.R;
 import com.stfalcon.chatkit.sample.common.data.fixtures.MessagesFixtures;
 import com.stfalcon.chatkit.sample.common.data.model.Message;
+import com.stfalcon.chatkit.sample.common.data.model.TextMessage;
 import com.stfalcon.chatkit.sample.utils.AppUtils;
 
 import java.text.SimpleDateFormat;
@@ -117,15 +119,19 @@ public abstract class DemoMessagesActivity extends AppCompatActivity
     private MessagesListAdapter.Formatter<Message> getMessageStringFormatter() {
         return new MessagesListAdapter.Formatter<Message>() {
             @Override
-            public String format(Message message) {
-                String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
-                        .format(message.getCreatedAt());
+            public String format(Message iMessage) {
+                if (iMessage instanceof TextMessage) {
+                    TextMessage message = (TextMessage) iMessage;
+                    String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
+                            .format(message.getCreatedAt());
 
-                String text = message.getText();
-                if (text == null) text = "[attachment]";
+                    String text = message.getText();
+                    if (text == null) text = "[attachment]";
 
-                return String.format(Locale.getDefault(), "%s: %s (%s)",
-                        message.getUser().getName(), text, createdAt);
+                    return String.format(Locale.getDefault(), "%s: %s (%s)",
+                            message.getUser().getName(), text, createdAt);
+                }
+                return "";
             }
         };
     }
